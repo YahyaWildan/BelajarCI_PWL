@@ -14,6 +14,7 @@
             <th>No</th>
             <th>Username</th>
             <th>Email</th>
+            <th>aksi</th>
         </tr>
         <?php 
             $no = 1;
@@ -23,6 +24,10 @@
             <td><?php echo $no;?></td>
             <td><?php echo $r['username'];?></td>
             <td><?php echo $r['email'];?></td>
+            <td>
+                <a href="<?php echo base_url()."index.php/relawankitabantu/edit_relawan/".$r['id_relawan'];?>">Edit</a> |
+                <a href="<?php echo base_url()."index.php/relawankitabantu/hapus_relawan/".$r['id_relawan'];?>">Hapus</a> 
+            </td>
         </tr>
         <?php
             $no++;

@@ -30,5 +30,55 @@
                 $this->daftar_relawan();
             }
         }
+        public function edit_relawan($id_relawan){
+            $this->load->model('mymodel');
+            $relawan = $this->mymodel->GetWhere('relawan', array('id_relawan'=>$id_relawan));
+            $data = array(
+                'id_relawan'=> $id_relawan,
+                'username' => $relawan[0]['username'],
+                'email' => $relawan[0]['email'],
+                'password' => $relawan[0]['password']
+            );
+            $this->load->view('form_edit_relawan',$data);
+        }
+        public function proses_edit_relawan($id_relawan){
+            $this->load->model('mymodel');
+            if(empty($this->input->post('password'))){
+                $password = $this->input->post('passwordSebelum');
+            }else{
+                $password = md5($this->input->post('password'));
+            }
+            $data = array(
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'password' => $password
+            );
+            $where=array(
+                'id_relawan' => $id_relawan
+            );
+            // var_dump($data);
+            $query = $this->mymodel->update('relawan',$data,$where);
+            if($query){
+                echo "<script> alert('Edit Relawan Suksess') </script>";
+                $this->index();
+            }else{
+                echo "<script> alert('Edit Relawan Gagal') </script>";
+                $this->edit_relawan()();
+            }
+        }
+        public function hapus_relawan($id_relawan){
+            $this->load->model('mymodel');
+            $id_relawan=array(
+                'id_relawan' => $id_relawan
+            );
+            $query = $this->mymodel->Delete('relawan', $id_relawan);
+            if($query){
+                echo "<script> alert('Delete Relawan Suksess') </script>";
+                $this->index();
+            }else{
+                echo "<script> alert('Delete Relawan Gagal') </script>";
+                $this->index();
+            }
+        }
     }
 ?>
