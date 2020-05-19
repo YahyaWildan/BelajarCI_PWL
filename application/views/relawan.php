@@ -34,5 +34,24 @@
             }
         ?>
     </table>
+
+    <br><h1>Login Relawan</h1>
+    <form action="<?php echo base_url()."index.php/relawankitabantu/proses_login_relawan"; ?>" method="POST">
+        <table>
+            <tr>
+                <td>email</td>
+                <td>:</td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td><button type="submit" >Login</button></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

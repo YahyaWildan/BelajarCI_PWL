@@ -63,7 +63,7 @@
                 $this->index();
             }else{
                 echo "<script> alert('Edit Relawan Gagal') </script>";
-                $this->edit_relawan()();
+                $this->edit_relawan();
             }
         }
         public function hapus_relawan($id_relawan){
@@ -77,6 +77,29 @@
                 $this->index();
             }else{
                 echo "<script> alert('Delete Relawan Gagal') </script>";
+                $this->index();
+            }
+        }
+        public function proses_login_relawan(){
+            $this->load->model('mymodel');
+            $where=array(
+                'email' => $this->input->post('email'),
+                'password' => md5($this->input->post('password'))
+            );
+            $cek = $this->mymodel->Getwhere('relawan', $where);
+            $count_cek = count($cek);
+            if($count_cek > 0){
+                $data_session = array(
+                    'id_relawan' => $cek[0]['id_relawan'],
+                    'username' => $cek[0]['username'],
+                    'foto' => $cek[0]['foto']
+                );                
+                $this->session->set_userdata($data_session);
+                echo "<script> alert('Login Relawan Suksess') </script>";
+                redirect(base_url("index.php/dashboardrelawan"));
+                //membaca controller baru Dashboardrelawan
+            }else{
+                echo "<script> alert('Login Relawan Gagal') </script>";
                 $this->index();
             }
         }
